@@ -1,6 +1,8 @@
 ﻿using DataModels.Entity;
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Runtime.InteropServices;
 
 namespace DAL.Student
 {
@@ -33,6 +35,52 @@ namespace DAL.Student
             }
 
             return student;
+        }
+
+        public List<Students> GetAllStudents()
+        {
+            List<Students> list = new List<Students>();
+
+            DBConnection db = new DBConnection();
+
+            using (SqlConnection conn = db.GetConnection())
+            {
+                string query = "SELECT * FROM Students";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    conn.Open();
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            list.Add(MapStudent(reader));
+                        }
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        public bool DeleteStudent(int StudentID)
+        {
+            DBConnection db = new DBConnection();
+            using(SqlConnection con = db.GetConnection())
+            {
+                string query = @"Delete from students where sid=@studentid";
+
+                using(SqlCommand cmd=new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@studentid", StudentID);
+                    con.Open();
+
+                    int rows = cmd.ExecuteNonQuery();
+                    return rows > 0;
+
+                }
+            }
         }
 
         public int InsertStudent(Students student)

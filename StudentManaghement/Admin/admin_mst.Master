@@ -1,0 +1,213 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="admin_mst.master.cs" Inherits="StudentManaghement.Admin.admin_mst" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            height: 60px;
+            background: #1f2937;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+            .navbar .title {
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+        .logout-btn {
+            background: #ef4444;
+            border: none;
+            padding: 6px 12px;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            .logout-btn:hover {
+                background: #dc2626;
+            }
+
+        /* LAYOUT */
+        .layout {
+            display: flex;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 220px;
+            background: #111827;
+            color: white;
+            min-height: calc(100vh - 60px);
+            padding: 15px;
+        }
+
+            .sidebar h4 {
+                margin-top: 20px;
+                font-size: 14px;
+                color: #9ca3af;
+            }
+
+            .sidebar a {
+                display: block;
+                color: #e5e7eb;
+                text-decoration: none;
+                padding: 8px;
+                border-radius: 6px;
+                margin-bottom: 5px;
+            }
+
+                .sidebar a:hover {
+                    background: #374151;
+                }
+
+        /* MAIN */
+        .main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        /* CARDS */
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+
+            .card h2, .card h3 {
+                margin-top: 0;
+            }
+
+        /* STATS GRID */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+            .stat-box h3 {
+                margin: 0;
+                font-size: 22px;
+            }
+
+            .stat-box p {
+                margin: 5px 0 0;
+                font-size: 13px;
+            }
+
+        /* FORM */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+            .form-group label {
+                display: block;
+                font-size: 13px;
+                margin-bottom: 4px;
+                color: #555;
+            }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+            .form-control:focus {
+                border-color: #3b82f6;
+                outline: none;
+            }
+
+        /* BUTTON */
+        .btn {
+            padding: 10px 15px;
+            background: #3b82f6;
+            border: none;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+            .btn:hover {
+                background: #2563eb;
+            }
+
+        /* MESSAGE */
+        .message {
+            margin-top: 10px;
+            font-size: 13px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <!-- NAVBAR -->
+        <div class="navbar">
+            <div class="title">
+                Admin Dashboard
+            </div>
+
+            <div>
+                Welcome,
+         <asp:Label ID="lblUserName" runat="server"></asp:Label>
+
+                <asp:Button ID="btnLogout" runat="server" Text="Logout"
+                    CssClass="logout-btn" OnClick="btnLogout_Click" />
+            </div>
+        </div>
+
+
+        <div class="layout">
+            <!-- SIDEBAR -->
+            <div class="sidebar">
+                <h4>User Management</h4>
+                <asp:HyperLink runat="server" NavigateUrl="~/Admin/UserDashboard.aspx" Text="Dashboard" />
+                <asp:HyperLink runat="server" NavigateUrl="~/Admin/UserSearch.aspx" Text="Users List" />
+                <asp:HyperLink runat="server" NavigateUrl="~/Admin/UserCreate.aspx" Text="Create User" />
+                <asp:HyperLink runat="server" NavigateUrl="~/Admin/UserDeactivation.aspx" Text="Deactivate user" />
+
+                <h4>Student Management</h4>
+                <asp:HyperLink runat="server" NavigateUrl="~/admin/StudentsList.aspx" Text="Students List" />
+                <asp:HyperLink runat="server" NavigateUrl="~/StudentForm.aspx" Text="Create Student" />
+            </div>
+
+            <!-- MAIN CONTENT -->
+            <div class="main">
+                <%--                You need to put content over here.--%>
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+
+
+    </form>
+</body>
+</html>

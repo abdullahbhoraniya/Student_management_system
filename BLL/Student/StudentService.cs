@@ -4,6 +4,7 @@ using DAL.Student;
 using DataModels.DTO;
 using DataModels.Entity;
 using System;
+using System.Collections.Generic;
 
 namespace BLL.Admin
 {
@@ -17,7 +18,30 @@ namespace BLL.Admin
             _repo = new StudentRepository();
             _validator = new StudentValidator();
         }
+        public List<StudentResponse> GetAllStudents()
+        {
+            var students = _repo.GetAllStudents();
 
+            List<StudentResponse> list = new List<StudentResponse>();
+
+            foreach (var s in students)
+            {
+                list.Add(new StudentResponse
+                {
+                    StudentId = s.sid,
+                    FullName = s.full_name,
+                    EmailId = s.email_id,
+                    PhoneNo = s.phone_no,
+                    Address = s.address,
+                    CreatedBy = s.created_by,
+                    UpdatedBy = s.updated_by,
+                    CreatedDate = s.created_date,
+                    UpdateDate = s.update_date
+                });
+            }
+
+            return list;
+        }
         // 🔹 CREATE STUDENT
         public (bool success, string message, int studentId) CreateStudent(StudentRequest request)
         {
@@ -57,6 +81,23 @@ namespace BLL.Admin
             return MapToResponse(student);
         }
 
+        public (bool success,string message) DeleteStudent(int studentId)
+        {
+            if(studentId <= 0)
+            {
+                return (false, "Id cannot be zero or negative");
+            }
+            bool deleted = _repo.DeleteStudent(studentId);
+            if (deleted)
+            {
+                return (true, "Student Deleted successfully");
+            }
+            else
+            {
+                return (false, "Student not found woth this id ");
+            }
+        }
+
         // 🔹 UPDATE STUDENT
         public (bool success, string message) UpdateStudent(int studentId, UpdateUserRequest request)
         {
@@ -90,7 +131,7 @@ namespace BLL.Admin
                 ? (true, "Student updated successfully")
                 : (false, "Update failed");
         }
-
+        
         // 🔹 LOGIN
         public StudentResponse Login(string email, string password)
         {

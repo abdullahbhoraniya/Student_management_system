@@ -35,7 +35,7 @@ namespace StudentManaghement.Admin
                 Session["UserName"] = user.FullName;
 
                 // ✅ Redirect
-                Response.Redirect("~/AdminDashboard.aspx");
+                Response.Redirect("~/admin/userdashboard.aspx");
             }
             else
             {

@@ -4,12 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Services.Description;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace StudentManaghement.Admin
 {
-    public partial class UserForm : System.Web.UI.Page
+    public partial class UserCreate : System.Web.UI.Page
     {
         private readonly UserService _service = new UserService();
 
@@ -23,6 +24,7 @@ namespace StudentManaghement.Admin
                     LoadUser(id);
                 }
             }
+
         }
 
         private void LoadUser(int id)
@@ -80,6 +82,7 @@ namespace StudentManaghement.Admin
                 lblMessage.Text = result.message;
             }
         }
+
 
     }
 }

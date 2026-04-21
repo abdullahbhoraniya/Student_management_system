@@ -3,115 +3,209 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Dashboard</title>
+    <title>Admin Dashboard</title>
 
-    <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         body {
-            font-family: Arial;
             margin: 0;
-            background: #f5f5f5;
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
         }
 
+        /* NAVBAR */
         .navbar {
-            background: #2c3e50;
+            height: 60px;
+            background: #1f2937;
             color: white;
-            padding: 15px;
             display: flex;
+            align-items: center;
             justify-content: space-between;
+            padding: 0 20px;
         }
 
-        .container {
-            padding: 20px;
-        }
-
-        .card {
-            background: white;
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 5px;
+        .navbar .title {
+            font-size: 18px;
+            font-weight: bold;
         }
 
         .logout-btn {
-            background: red;
-            color: white;
+            background: #ef4444;
             border: none;
-            padding: 8px 12px;
+            padding: 6px 12px;
+            color: white;
+            border-radius: 5px;
             cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background: #dc2626;
+        }
+
+        /* LAYOUT */
+        .layout {
+            display: flex;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 220px;
+            background: #111827;
+            color: white;
+            min-height: calc(100vh - 60px);
+            padding: 15px;
+        }
+
+        .sidebar h4 {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #e5e7eb;
+            text-decoration: none;
+            padding: 8px;
+            border-radius: 6px;
+            margin-bottom: 5px;
+        }
+
+        .sidebar a:hover {
+            background: #374151;
+        }
+
+        /* MAIN */
+        .main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        /* CARDS */
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+
+        .card h2, .card h3 {
+            margin-top: 0;
+        }
+
+        /* STATS GRID */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .stat-box h3 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .stat-box p {
+            margin: 5px 0 0;
+            font-size: 13px;
         }
     </style>
 </head>
+
 <body>
-    <form id="form1" runat="server">
+<form id="form1" runat="server">
 
-        <!-- 🔹 Top Navbar -->
-        <div class="navbar">
-            <div>
-                Welcome,
-                <asp:Label ID="lblUserName" runat="server"></asp:Label>
-            </div>
-
-            <div>
-                <asp:Button ID="btnLogout" runat="server" Text="Logout" CssClass="logout-btn" OnClick="btnLogout_Click" />
-            </div>
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <div class="title">
+            Admin Dashboard
         </div>
 
-        <div style="display: flex;">
+        <div>
+            Welcome,
+            <asp:Label ID="lblUserName" runat="server"></asp:Label>
 
-            <div style="width: 200px; background: #34495e; color: white; min-height: 100vh; padding: 10px;">
-                <h4>User Actions</h4>
-                <asp:HyperLink runat="server" NavigateUrl="~/admin/UsersList.aspx" Text="Users List" /><br />
-                <br />
-                <asp:HyperLink runat="server" NavigateUrl="~/admin/UserForm.aspx" Text="Create User" /><br />
-                <br />
+            <asp:Button ID="btnLogout" runat="server" Text="Logout"
+                CssClass="logout-btn" OnClick="btnLogout_Click" />
+        </div>
+    </div>
 
-                <h4>Student Actions</h4>
-                <asp:HyperLink runat="server" NavigateUrl="~/StudentsList.aspx" Text="Students List" /><br />
-                <br />
-                <asp:HyperLink runat="server" NavigateUrl="~/StudentForm.aspx" Text="Create Student" />
-            </div>
+    <div class="layout">
 
-            <div style="flex: 1; padding: 20px;">
-                <h2>Dashboard</h2>
-                <p>Select an action from the menu.</p>
-            </div>
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <h4>User Management</h4>
+            <asp:HyperLink runat="server" NavigateUrl="~/admin/UsersList.aspx" Text="Users List" />
+            <asp:HyperLink runat="server" NavigateUrl="~/admin/UserForm.aspx" Text="Create User" />
 
+            <h4>Student Management</h4>
+            <asp:HyperLink runat="server" NavigateUrl="~/admin/StudentsList.aspx" Text="Students List" />
+            <asp:HyperLink runat="server" NavigateUrl="~/StudentForm.aspx" Text="Create Student" />
         </div>
 
-        <!-- 🔹 Content -->
-        <div class="container">
+        <!-- MAIN CONTENT -->
+        <div class="main">
 
+            <!-- STATS -->
+            <div class="stats">
+                <div class="stat-box">
+                    <h3>120</h3>
+                    <p>Total Students</p>
+                </div>
+
+                <div class="stat-box">
+                    <h3>45</h3>
+                    <p>Total Users</p>
+                </div>
+
+                <div class="stat-box">
+                    <h3>12</h3>
+                    <p>Active Exams</p>
+                </div>
+            </div>
+
+            <!-- WELCOME -->
             <div class="card">
-                <h2>Dashboard</h2>
-                <p>Welcome to your dashboard. You are successfully logged in.</p>
+                <h2>Welcome</h2>
+                <p>You are successfully logged in. Use the sidebar to manage users and students.</p>
             </div>
 
+            <!-- CHART -->
             <div class="card">
-                <h3>Sample Chart</h3>
-                <canvas id="myChart" width="400" height="150"></canvas>
+                <h3>Users Growth</h3>
+                <canvas id="myChart" height="100"></canvas>
             </div>
+
+
 
         </div>
+    </div>
 
-    </form>
+</form>
 
-    <!-- 🔹 Chart Script -->
-    <script>
-        const ctx = document.getElementById('myChart');
+<script>
+    const ctx = document.getElementById('myChart');
 
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr'],
-                datasets: [{
-                    label: 'Users Data',
-                    data: [10, 25, 15, 30]
-                }]
-            }
-        });
-    </script>
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr'],
+            datasets: [{
+                label: 'Users Data',
+                data: [10, 25, 15, 30]
+            }]
+        }
+    });
+</script>
 
 </body>
 </html>

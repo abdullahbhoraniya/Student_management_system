@@ -69,7 +69,12 @@
   <ItemGroup>
     <Content Include="AdminDashboard.aspx" />
     <Content Include="Admin\Login.aspx" />
+    <Content Include="Admin\StudentsList.aspx" />
+    <Content Include="Admin\UserCreate.aspx" />
+    <Content Include="Admin\UserDashboard.aspx" />
+    <Content Include="Admin\UserDeactivation.aspx" />
     <Content Include="Admin\UserForm.aspx" />
+    <Content Include="Admin\UserSearch.aspx" />
     <Content Include="Admin\UsersList.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -81,6 +86,13 @@
     <Compile Include="AdminDashboard.aspx.designer.cs">
       <DependentUpon>AdminDashboard.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\admin_mst.Master.cs">
+      <DependentUpon>admin_mst.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\admin_mst.Master.designer.cs">
+      <DependentUpon>admin_mst.Master</DependentUpon>
+    </Compile>
     <Compile Include="Admin\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -88,12 +100,47 @@
     <Compile Include="Admin\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\StudentsList.aspx.cs">
+      <DependentUpon>StudentsList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\StudentsList.aspx.designer.cs">
+      <DependentUpon>StudentsList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\UserCreate.aspx.cs">
+      <DependentUpon>UserCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\UserCreate.aspx.designer.cs">
+      <DependentUpon>UserCreate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\UserDashboard.aspx.cs">
+      <DependentUpon>UserDashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\UserDashboard.aspx.designer.cs">
+      <DependentUpon>UserDashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\UserDeactivation.aspx.cs">
+      <DependentUpon>UserDeactivation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\UserDeactivation.aspx.designer.cs">
+      <DependentUpon>UserDeactivation.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\UserForm.aspx.cs">
       <DependentUpon>UserForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\UserForm.aspx.designer.cs">
       <DependentUpon>UserForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\UserSearch.aspx.cs">
+      <DependentUpon>UserSearch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\UserSearch.aspx.designer.cs">
+      <DependentUpon>UserSearch.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\UsersList.aspx.cs">
       <DependentUpon>UsersList.aspx</DependentUpon>
@@ -105,6 +152,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\admin_mst.Master" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
