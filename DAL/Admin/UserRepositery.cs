@@ -1,6 +1,7 @@
 ﻿using DataModels.Entity;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -160,6 +161,25 @@ namespace DAL.Admin
             return user;
         }
 
+        public int DeleteUsers(int userid)
+        {
+            DBConnection db = new DBConnection();
+            using (SqlConnection con = db.GetConnection())
+            {
+                con.Open();
+                string query = @"Delete from users where stf_id=@id";
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@id", userid);
+
+                    // ✅ Execute the query
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    // ✅ Return how many rows were deleted
+                    return rowsAffected;
+                }
+            }
+        }
 
         public List<Users> GetUsers(string search = "")
         {
@@ -182,6 +202,13 @@ namespace DAL.Admin
                         cmd.Parameters.AddWithValue("@search", "%" + search + "%");
 
                     conn.Open();
+                    cmd.Connection = conn;
+
+                    DataSet ds = new DataSet();
+                    SqlDataAdapter adp = new SqlDataAdapter(cmd);
+                    adp.Fill(ds);
+                   
+
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -199,7 +226,7 @@ namespace DAL.Admin
                             user.updated_by = reader["updated_by"] != DBNull.Value ? Convert.ToInt32(reader["updated_by"]) : (int?)null;
                             user.created_date = reader["created_date"] != DBNull.Value ? Convert.ToDateTime(reader["created_date"]) : (DateTime?)null;
                             user.update_date = reader["update_date"] != DBNull.Value ? Convert.ToDateTime(reader["update_date"]) : (DateTime?)null;
-
+                            user.Status = reader["Status"].ToString();
 
                             list.Add(user);
 
