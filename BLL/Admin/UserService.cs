@@ -4,6 +4,7 @@ using DataModels.DTO;
 using DataModels.Entity;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 
 namespace BLL.Admin
 {
@@ -107,22 +108,41 @@ namespace BLL.Admin
             return MapToResponse(user);
         }
 
+
         public List<UserResponse> GetUsersList(string search = "")
         {
             // Step 1: Call DAL
             List<Users> users = _repo.GetUsers(search);
 
             // Step 2: Map to DTO
-            List<UserResponse> responseList = new List<UserResponse>();
+            List<UserResponse> userResponse = new List<UserResponse>();
 
             foreach (var user in users)
             {
-                responseList.Add(MapToResponse(user));
+                userResponse.Add(MapToResponse(user));
             }
             
-            return responseList;
+            return userResponse;
         }
 
+        public (bool success,string message) DeleteUser (int UserID)
+        {
+            if(UserID == null)
+            {
+                return (true, message: "userId is null");
+
+
+            }
+            var response = _repo.DeleteUsers(UserID);
+            if(response > 0)
+            {
+                return (true, message: "User Deleted Succesfully");
+            }
+            else
+            {
+                return (false, message: "User not found");
+            }
+        }
 
         // 🔹 PRIVATE MAPPING METHOD
         private UserResponse MapToResponse(Users user)
@@ -138,6 +158,7 @@ namespace BLL.Admin
             userRes.UpdatedBy = user.updated_by;
             userRes.CreatedDate = user.created_date;
             userRes.UpdateDate = user.update_date;
+            userRes.status = user.Status;
 
 
             return userRes;

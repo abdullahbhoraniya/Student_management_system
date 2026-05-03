@@ -27,5 +27,7 @@ namespace DataModels.Entity
         public DateTime? created_date { get; set; }
 
         public DateTime? update_date { get; set; }
+
+        public string Status { get; set; }
     }
 }

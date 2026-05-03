@@ -12,11 +12,6 @@ namespace StudentManaghement.Admin
         protected void Page_Load(object sender, EventArgs e)
         {
             // 🚨 Session check (IMPORTANT)
-            if (Session["UserId"] == null)
-            {
-                Response.Redirect("Admin/Login.aspx");
-                return;
-            }
 
             if (!IsPostBack)
             {
